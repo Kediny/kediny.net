@@ -1,0 +1,56 @@
+
+  Future todo:
+  
+  - Piracy & cool software stuff
+    - Software
+      - best cool open source stuff
+        - PC (qbittorrent, ublock origin, ahoy!, ds4windows, etc)
+        - 3DS (my personal favorite homebrew apps)
+      - How to pirate Spotify for Android
+      - How to pirate Windows 10
+    - Games
+      - Windows
+        - refer to qbitorrent
+        - refer to Crackwatch
+        - refer to misc torrent aggregators
+      - Emulators
+        - General guide to emulation
+        - PC emulation, mention my personal favorites
+          - How to setup CEMU
+          - How to setup Yuzu
+          - How to setup PCSX2
+          - How to setup Duckstation
+          - How to setup melonDS (FUCK DeSmuME)
+          - How to setup Citra, also maybe talk about how to share saves with 3DS
+          - Other simple ones like mGBA, bgb, nestopia (research better NES emulators maybe?)
+        - Portable consoles emulation, mention my personal favorites (talk about 3DS vs Vita)
+          - Best 3DS emulators (link accordingly) (refer to homebrew)
+          - Best Vita emulators (link accordingly) (refer to homebrew)
+      - Roms
+        - Repost my Emuparadise revival guide
+        - refer to Vimm.net
+        - refer to r-roms.github.io (possibly adding JDownloader?)
+      
+  - Media
+    - Games
+      - repost my Fallen Order and Firewatch reviews
+      - link my backloggd
+      - list my favorites and talk a little about them
+    - Manga/Anime
+      - link my anilist
+      - Manga
+        - list my backlog, completed manga, etc.
+        - list my favorites and talk a little about them
+      - Anime
+        - list my backlog, completed anime, etc.
+    - Movies
+      - link my letterboxd
+      - list my favorites and talk a little about them
+  
+  - Gallery (a small collection of pictures I like)
+    - HD game boxarts
+    - HD official art
+    - Fanart I like (careful to link the artists)
+    - Manga pages
+    - Photography corner
+    
