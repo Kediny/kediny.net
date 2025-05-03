@@ -12,8 +12,17 @@
       body {
         background-image: url("images/hagane.png");
         background-repeat: no-repeat;
-        background-size: cover;
         background-position: center center;
+        background-attachment: scroll;
+        background-size: cover; /* default for desktop */
+        background-color: black;
+      }
+      @media (max-width: 768px) {
+        body {
+          background-size: contain; /* ensures full image fits horizontally */
+          background-position: top center;
+          background-repeat: no-repeat;
+        }
       }
     </style>
   </head>
