@@ -1,6 +1,22 @@
-/* CSS is how you can add style to your website, such as colors, fonts, and positioning of your
-   HTML content. To learn how to do something, just try searching Google for questions like
-   "how to change link color." */
+@font-face {
+  font-family: 'Lyno-Jean 2';
+  src: url('fonts/Lyno-Jean 2.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Lyno-Stan 2';
+  src: url('fonts/Lyno-Stan 2.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Lyno-Ulys 2';
+  src: url('fonts/Lyno-Ulys 2.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Lyno-Walt 2';
+  src: url('fonts/Lyno-Walt 2.otf') format('opentype');
+}
 
 body {
   background-color: black;
@@ -8,8 +24,38 @@ body {
   font-family: Helvetica;
 }
 
-.center {
+.main-title {
+  text-align: center;
+  font-family: 'Lyno-Stan 2', sans-serif;
+}
+
+.subtitle {
+  text-align: center;
+}
+
+.side-by-side {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+.social-links {
+  text-align: right;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 6px;
+  color: white;
+}
+
+.social-links a {
+  text-align: right;
+  display: block;
+  margin-bottom: 6px;
+  color: white;
+  text-decoration: underline;
+}
+
+p {
+  margin: 0 0 6px 0; /* bottom margin matches the links */
 }
