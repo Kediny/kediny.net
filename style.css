@@ -40,6 +40,17 @@ body {
   gap: 20px;
 }
 
+#random-image {
+  width: 400px;
+  height: auto;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  #random-image {
+    width: 20%;
+  }
+}
+
 
 .social-links {
   text-align: right;
