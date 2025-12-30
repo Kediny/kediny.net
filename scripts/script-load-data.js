@@ -1,5 +1,27 @@
 const API_KEY = '90f0038b76c5aacb869424fe52ee09f1';
 
+async function getLinkData(url) {
+    const cacheKey = `lp_${btoa(url)}`;
+    const cached = localStorage.getItem(cacheKey);
+
+    if (cached) return JSON.parse(cached);
+
+    try {
+        const response = await fetch(`https://api.linkpreview.net/?key=${API_KEY}&q=${encodeURIComponent(url)}`);
+        
+        if (response.status === 429) {
+            console.warn("Limite da API atingido. A mostrar link simples.");
+            return null;
+        }
+
+        const data = await response.json();
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        return data;
+    } catch (e) {
+        return null;
+    }
+}
+
 async function loadAllData() {
     try {
         // 1. CARREGAR CHANGELOG
@@ -12,32 +34,39 @@ async function loadAllData() {
             ).join('');
         }
 
-        // 2. CARREGAR READING LIST (READ RECENTLY)
+        // 2. CARREGAR READING LIST
         const linksRes = await fetch('data/links.json');
         const linksData = await linksRes.json();
         const container = document.getElementById('read-recently-container');
+
         if (container) {
             for (const item of linksData) {
-                const response = await fetch(`https://api.linkpreview.net/?key=${API_KEY}&q=${encodeURIComponent(item.url)}`);
-                const data = await response.json();
+                const data = await getLinkData(item.url);
 
-                if (data.title) {
+                // Se a API falhar (429), cria um item simples só com o URL
+                if (!data) {
                     container.innerHTML += `
-                        <a href="${data.url}" class="read-item" target="_blank">
-                            <img src="${data.image || ''}" alt="" onerror="this.style.display='none'">
+                        <a href="${item.url}" class="read-item" target="_blank">
                             <div class="item-info">
-                                <strong>${data.title}</strong>
-                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">
-                                    added ${item.date}
-                                </div>
+                                <strong>${item.url}</strong>
+                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">lido em: ${item.date} (preview indisponível)</div>
                             </div>
-                        </a>
-                    `;
+                        </a>`;
+                    continue;
                 }
+
+                container.innerHTML += `
+                    <a href="${data.url}" class="read-item" target="_blank">
+                        <img src="${data.image || ''}" alt="" onerror="this.style.display='none'">
+                        <div class="item-info">
+                            <strong>${data.title}</strong>
+                            <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">lido em: ${item.date}</div>
+                        </div>
+                    </a>`;
             }
         }
     } catch (error) {
-        console.error("Erro ao carregar dados:", error);
+        console.error("Erro geral:", error);
     }
 }
 
