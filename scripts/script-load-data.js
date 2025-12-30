@@ -24,7 +24,7 @@ async function getLinkData(url) {
 
 async function loadAllData() {
     try {
-        // 1. CARREGAR CHANGELOG
+        // CARREGAR CHANGELOG
         const changelogRes = await fetch('data/changelog.json');
         const changelogData = await changelogRes.json();
         const changelogList = document.querySelector('.changelog-list');
@@ -34,7 +34,7 @@ async function loadAllData() {
             ).join('');
         }
 
-        // 2. CARREGAR READING LIST
+        // CARREGAR ARTIGOS
         const linksRes = await fetch('data/links.json');
         const linksData = await linksRes.json();
         const container = document.getElementById('read-recently-container');
@@ -42,14 +42,12 @@ async function loadAllData() {
         if (container) {
             for (const item of linksData) {
                 const data = await getLinkData(item.url);
-
-                // Se a API falhar (429), cria um item simples só com o URL
                 if (!data) {
                     container.innerHTML += `
                         <a href="${item.url}" class="read-item" target="_blank">
                             <div class="item-info">
                                 <strong>${item.url}</strong>
-                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">lido em: ${item.date} (preview indisponível)</div>
+                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">added ${item.date} (preview indisponível)</div>
                             </div>
                         </a>`;
                     continue;
@@ -60,7 +58,7 @@ async function loadAllData() {
                         <img src="${data.image || ''}" alt="" onerror="this.style.display='none'">
                         <div class="item-info">
                             <strong>${data.title}</strong>
-                            <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">lido em: ${item.date}</div>
+                            <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">added ${item.date}</div>
                         </div>
                     </a>`;
             }
