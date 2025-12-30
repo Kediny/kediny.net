@@ -9,11 +9,6 @@
 }
 
 @font-face {
-  font-family: 'Lyno-Ulys 2';
-  src: url('fonts/Lyno-Ulys 2.otf') format('opentype');
-}
-
-@font-face {
   font-family: 'Lyno-Walt 2';
   src: url('fonts/Lyno-Walt 2.otf') format('opentype');
 }
@@ -69,4 +64,77 @@ body {
 
 p {
   margin: 0 0 6px 0;
+}
+
+/* cenas do separador? */
+
+.read-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  margin-bottom: 15px;
+  padding: 8px;
+  border: 1px solid #222;
+  transition: background 0.2s;
+}
+
+.read-item:hover {
+  background: #111;
+}
+
+.read-item img {
+  width: 60px;
+  height: 40px;
+  object-fit: cover;
+  background: #333; /* cor de fundo enquanto a imagem não carrega */
+}
+
+.item-info {
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.info-grid {
+  display: flex;
+  gap: 50px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.column {
+  flex: 1;
+}
+
+.column-title {
+  font-family: 'Lyno-Jean 2', sans-serif; /* Usando uma das tuas fontes */
+  font-size: 1.2rem;
+  border-bottom: 1px solid white;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.changelog-list {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.changelog-list li {
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+.changelog-list span {
+  color: #666;
+  font-family: monospace;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .info-grid {
+    flex-direction: column;
+  }
 }
