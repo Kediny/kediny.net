@@ -35,8 +35,9 @@ body {
   gap: 20px;
 }
 
-#random-image {
+#oj-image {
   width: 400px;
+  max-width: 100%;
   height: auto;
 }
 
@@ -88,7 +89,7 @@ p {
   width: 60px;
   height: 40px;
   object-fit: cover;
-  background: #333; /* cor de fundo enquanto a imagem não carrega */
+  background: #333;
 }
 
 .item-info {
@@ -98,9 +99,9 @@ p {
 
 .info-grid {
   display: flex;
-  gap: 50px;
+  gap: 30px;
   max-width: 900px;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
   padding: 0 20px;
 }
 
@@ -109,7 +110,7 @@ p {
 }
 
 .column-title {
-  font-family: 'Lyno-Jean 2', sans-serif; /* Usando uma das tuas fontes */
+  font-family: 'Lyno-Jean 2', sans-serif;
   font-size: 1.2rem;
   border-bottom: 1px solid white;
   padding-bottom: 5px;
@@ -134,7 +135,36 @@ p {
 
 /* Mobile */
 @media (max-width: 768px) {
+  .side-by-side {
+    /* Força a imagem e os links a ficarem na mesma linha */
+    flex-direction: row; 
+    align-items: flex-start;
+    justify-content: center;
+    gap: 15px; /* Espaço entre a imagem e o texto */
+  }
+
+  #oj-image {
+    /* Reduz a imagem para que os links tenham espaço ao lado */
+    width: 70%; 
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .social-links {
+    /* Mantém o texto alinhado à direita como no desktop */
+    text-align: right;
+    flex: 1;
+  }
+
+  .social-links a {
+    text-align: right;
+    font-size: 0.9rem; /* Ajuste ligeiro para não quebrar linhas em ecrãs pequenos */
+  }
+
   .info-grid {
+    /* O changelog e o "read recently" continuam a empilhar para ser legível */
     flex-direction: column;
+    gap: 30px;
   }
 }
