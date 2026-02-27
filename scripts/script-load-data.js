@@ -47,7 +47,7 @@ async function loadAllData() {
                         <a href="${item.url}" class="read-item" target="_blank">
                             <div class="item-info">
                                 <strong>${item.url}</strong>
-                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">added ${item.date} (preview indisponível)</div>
+                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">${item.date} (preview indisponível)</div>
                             </div>
                         </a>`;
                     continue;
@@ -58,7 +58,7 @@ async function loadAllData() {
                         <img src="${data.image || ''}" alt="" onerror="this.style.display='none'">
                         <div class="item-info">
                             <strong>${data.title}</strong>
-                            <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">added ${item.date}</div>
+                            <div style="color: #666; font-size: 0.7rem; margin-top: 4px;">${item.date}</div>
                         </div>
                     </a>`;
             }
