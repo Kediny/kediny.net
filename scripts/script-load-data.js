@@ -45,19 +45,28 @@ async function loadAllData() {
 			for (const item of linksData) {
 				const data = await getLinkData(item.url);
 				
-				// WORKAROUND: Priority for Title
-				// 1. Title from API (data.title)
-				// 2. Manual title from links.json (item.title)
-				// 3. Fallback to URL (item.url)
-				const displayTitle = (data && data.title && data.title.trim() !== "") 
-									 ? data.title 
-									 : (item.title || item.url);
+				// 1. Ensure the link points to the external URL even if the API fails
+				const targetUrl = (data && data.url) ? data.url : item.url;
+				
+				// 2. Get the best possible title (API title > Manual URL)
+				const displayTitle = (data && data.title) ? data.title : item.url;
 
-				// Always use the original URL to ensure it opens correctly
-				const targetUrl = item.url;
+				// If the API failed completely (429 or error), show a simple clickable link
+				if (!data) {
+					container.innerHTML += `
+						<a href="${targetUrl}" class="read-item" target="_blank">
+							<div class="item-info">
+								<strong>${displayTitle}</strong>
+								<div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> 
+									${item.date} (preview unavailable)
+								</div>
+							</div>
+						</a>`;
+					continue;
+				}
 
-				// Only show image if it exists and isn't empty
-				const imageHtml = (data && data.image && data.image.trim() !== "") 
+				// 3. Only create the image tag if a valid image URL exists
+				const imageHtml = (data.image && data.image.trim() !== "") 
 					? `<img src="${data.image}" alt="" onerror="this.style.display='none'">` 
 					: "";
 
