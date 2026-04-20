@@ -40,29 +40,38 @@ async function loadAllData() {
         const container = document.getElementById('read-recently-container');
 
         if (container) {
-            for (const item of linksData) {
-                const data = await getLinkData(item.url);
-                if (!data) {
-                    container.innerHTML += `
-                        <a href="${item.url}" class="read-item" target="_blank">
-                            <div class="item-info">
-                                <strong>${item.url}</strong>
-                                <div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> ${item.date} (preview indisponível)</div>
-                            </div>
-                        </a>`;
-                    continue;
-                }
+			for (const item of linksData) {
+				const data = await getLinkData(item.url);
+				
+				// Use a fallback title if the API doesn't return one
+				const displayTitle = (data && data.title) ? data.title : item.url;
+				
+				if (!data) {
+					container.innerHTML += `
+						<a href="${item.url}" class="read-item" target="_blank">
+							<div class="item-info">
+								<strong>${item.url}</strong>
+								<div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> ${item.date} (preview indisponível)</div>
+							</div>
+						</a>`;
+					continue;
+				}
 
-                container.innerHTML += `
-                    <a href="${data.url}" class="read-item" target="_blank">
-                        <img src="${data.image || ''}" alt="" onerror="this.style.display='none'">
-                        <div class="item-info">
-                            <strong>${data.title}</strong>
-                            <div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> ${item.date}</div>
-                        </div>
-                    </a>`;
-            }
-        }
+				// Check if data.image exists and is not an empty string
+				const imageHtml = (data.image && data.image.trim() !== "") 
+					? `<img src="${data.image}" alt="" onerror="this.style.display='none'">` 
+					: "";
+
+				container.innerHTML += `
+					<a href="${data.url}" class="read-item" target="_blank">
+						${imageHtml}
+						<div class="item-info">
+							<strong>${displayTitle}</strong>
+							<div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> ${item.date}</div>
+						</div>
+					</a>`;
+			}
+		}
     } catch (error) {
         console.error("Erro geral:", error);
     }
