@@ -39,31 +39,39 @@ async function loadAllData() {
         const linksData = await linksRes.json();
         const container = document.getElementById('read-recently-container');
 
-        if (container) {
+        // ... inside loadAllData function ...
+
+		if (container) {
 			for (const item of linksData) {
 				const data = await getLinkData(item.url);
 				
-				// Use a fallback title if the API doesn't return one
-				const displayTitle = (data && data.title) ? data.title : item.url;
+				// 1. Ensure the link points to the external URL even if the API fails
+				const targetUrl = (data && data.url) ? data.url : item.url;
 				
+				// 2. Get the best possible title (API title > Manual URL)
+				const displayTitle = (data && data.title) ? data.title : item.url;
+
+				// If the API failed completely (429 or error), show a simple clickable link
 				if (!data) {
 					container.innerHTML += `
-						<a href="${item.url}" class="read-item" target="_blank">
+						<a href="${targetUrl}" class="read-item" target="_blank">
 							<div class="item-info">
-								<strong>${item.url}</strong>
-								<div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> ${item.date} (preview indisponível)</div>
+								<strong>${displayTitle}</strong>
+								<div style="color: #666; font-size: 0.7rem; margin-top: 4px;"> 
+									${item.date} (preview unavailable)
+								</div>
 							</div>
 						</a>`;
 					continue;
 				}
 
-				// Check if data.image exists and is not an empty string
+				// 3. Only create the image tag if a valid image URL exists
 				const imageHtml = (data.image && data.image.trim() !== "") 
 					? `<img src="${data.image}" alt="" onerror="this.style.display='none'">` 
 					: "";
 
 				container.innerHTML += `
-					<a href="${data.url}" class="read-item" target="_blank">
+					<a href="${targetUrl}" class="read-item" target="_blank">
 						${imageHtml}
 						<div class="item-info">
 							<strong>${displayTitle}</strong>
